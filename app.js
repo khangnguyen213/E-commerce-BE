@@ -28,6 +28,7 @@ app.use(
 // app.use(compression());
 app.use((req, res, next) => {
   res.send("Server on");
+  next();
 });
 app.use(express.json());
 app.use(
