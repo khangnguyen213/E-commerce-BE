@@ -26,7 +26,7 @@ const convertMoney = (money) => {
 exports.checkSession = (req, res, next) => {
   if (!req.session.isLogged) {
     console.log("No session");
-    return res.sendStatus(401);
+    return res.status(401).json(req.session);
   } else {
     const response = {
       isLogged: req.session.isLogged,
