@@ -9,6 +9,7 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const port = process.env.PORT || 5000;
 const mongodbURL = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.btdla2l.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
 const app = express();
+app.set("trust proxy", 1);
 const store = new MongoDBStore({
   uri: mongodbURL,
   collection: "sessions",
@@ -30,7 +31,6 @@ app.use(
 //   res.send("Server on");
 //   next();
 // });
-app.use(express.json());
 app.use(
   session({
     secret: "my secret",
@@ -40,9 +40,15 @@ app.use(
     store: store,
   })
 );
+app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(multer().array("images", 5));
+app.get("/", (req, res, next) => {
+  console.log(req.session);
+  console.log("#1 ok");
+  res.send("hello nodejs");
+});
 
 app.get("/check-session", userControllers.checkSession);
 
