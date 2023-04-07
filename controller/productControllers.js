@@ -1,35 +1,8 @@
 const Product = require("../model/product");
 const multer = require("multer");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "images");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now().toString() + "-" + file.originalname);
-  },
-});
-
-const convertMoney = (money) => {
-  const str = money + "";
-  let output = "";
-
-  let count = 0;
-  for (let i = str.length - 1; i >= 0; i--) {
-    count++;
-    output = str[i] + output;
-
-    if (count % 3 === 0 && i !== 0) {
-      output = "." + output;
-      count = 0;
-    }
-  }
-
-  return output;
-};
-
 const upload = multer({
-  storage,
+  // storage,
   limits: { fileSize: 1 * 1024 * 1024 }, // 1MB
   fileFilter: (req, file, cb) => {
     if (
@@ -84,7 +57,8 @@ exports.postAddProduct = (req, res, next) => {
     const short_desc = req.body.short_desc;
     const long_desc = req.body.long_desc;
     const price = req.body.price;
-    const img1 = `http://localhost:5000/${req.files[0].filename}`;
+    const img1 = req.files[0].buffer.toString("base64");
+    const type1 = req.files[0].mimetype;
     const infor = {
       name,
       category,
@@ -92,15 +66,19 @@ exports.postAddProduct = (req, res, next) => {
       short_desc,
       long_desc,
       img1,
+      type1,
     };
     if (req.files[1]) {
-      infor.img2 = `http://localhost:5000/${req.files[1].filename}`;
+      infor.img2 = req.files[1].buffer.toString("base64");
+      infor.type2 = req.files[1].mimetype;
     }
     if (req.files[2]) {
-      infor.img3 = `http://localhost:5000/${req.files[2].filename}`;
+      infor.img3 = req.files[2].buffer.toString("base64");
+      infor.type3 = req.files[2].mimetype;
     }
     if (req.files[3]) {
-      infor.img4 = `http://localhost:5000/${req.files[3].filename}`;
+      infor.img4 = req.files[3].buffer.toString("base64");
+      infor.type4 = req.files[3].mimetype;
     }
     console.log(infor);
 
@@ -159,16 +137,20 @@ exports.postEditProduct = (req, res, next) => {
     };
 
     if (req.files[0]) {
-      updateInfor.img1 = `http://localhost:5000/${req.files[0].filename}`;
+      updateInfor.img1 = req.files[0].buffer.toString("base64");
+      updateInfor.type1 = req.files[0].mimetype;
     }
     if (req.files[1]) {
-      updateInfor.img2 = `http://localhost:5000/${req.files[1].filename}`;
+      updateInfor.img2 = req.files[1].buffer.toString("base64");
+      updateInfor.type2 = req.files[1].mimetype;
     }
     if (req.files[2]) {
-      updateInfor.img3 = `http://localhost:5000/${req.files[2].filename}`;
+      updateInfor.img3 = req.files[2].buffer.toString("base64");
+      updateInfor.type3 = req.files[2].mimetype;
     }
     if (req.files[3]) {
-      updateInfor.img4 = `http://localhost:5000/${req.files[3].filename}`;
+      updateInfor.img4 = req.files[3].buffer.toString("base64");
+      updateInfor.type4 = req.files[3].mimetype;
     }
 
     console.log(updateInfor);

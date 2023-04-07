@@ -128,10 +128,12 @@ exports.postSendMail = async (req, res, next) => {
   const formattedItemArr = originalItemArr.map((item) => {
     const data = {
       text: item.productId.name,
-      image: item.productId.img1,
+      img1: item.productId.img1,
+      type1: item.productId.type1,
       price: convertMoney(item.productId.price),
       quantity: item.quantity,
     };
+    console.log(item.productId.type1);
     return data;
   });
   const total = originalItemArr.reduce((sum, value) => {

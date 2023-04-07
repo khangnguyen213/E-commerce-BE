@@ -18,13 +18,26 @@ const productSchema = new Schema({
     type: Schema.Types.String,
     required: true,
   },
+  type1: {
+    type: Schema.Types.String,
+    required: true,
+  },
   img2: {
+    type: Schema.Types.String,
+  },
+  type2: {
     type: Schema.Types.String,
   },
   img3: {
     type: Schema.Types.String,
   },
+  type3: {
+    type: Schema.Types.String,
+  },
   img4: {
+    type: Schema.Types.String,
+  },
+  type4: {
     type: Schema.Types.String,
   },
   short_desc: {

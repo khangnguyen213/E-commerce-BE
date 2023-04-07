@@ -6,7 +6,6 @@ const session = require("express-session");
 const helmet = require("helmet");
 // const compression = require("compression");
 const MongoDBStore = require("connect-mongodb-session")(session);
-console.log(process.env);
 const port = process.env.PORT || 5000;
 const mongodbURL = `mongodb+srv://${process.env.MONGO_USER || "khangnguyen"}:${
   process.env.MONGO_PASSWORD || "140202"
@@ -31,7 +30,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(helmet());
+// app.use(helmet());
 // app.use(compression());
 
 app.use(express.json());
