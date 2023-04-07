@@ -3,18 +3,13 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const session = require("express-session");
-const helmet = require("helmet");
+// const helmet = require("helmet");
 // const compression = require("compression");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const port = process.env.PORT || 5000;
-const mongodbURL = `mongodb+srv://${process.env.MONGO_USER || "khangnguyen"}:${
-  process.env.MONGO_PASSWORD || "140202"
-}@cluster0.btdla2l.mongodb.net/${
-  process.env.MONGO_DEFAULT_DATABASE || "shop3"
-}?retryWrites=true&w=majority`;
+const mongodbURL = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.btdla2l.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
 const app = express();
 const store = new MongoDBStore({
-  // uri: "mongodb+srv://khangnguyen:140202@cluster0.btdla2l.mongodb.net/shop3?retryWrites=true&w=majority",
   uri: mongodbURL,
   collection: "sessions",
 });
@@ -22,17 +17,18 @@ const store = new MongoDBStore({
 const userControllers = require("./controller/userControllers");
 const productControllers = require("./controller/productControllers");
 const cartControllers = require("./controller/cartControllers");
-
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3006"],
+    origin: process.env.COR_ORIGIN.split(","),
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
     credentials: true,
   })
 );
 // app.use(helmet());
 // app.use(compression());
-
+app.use((req, res, next) => {
+  res.send("Server on");
+});
 app.use(express.json());
 app.use(
   session({
