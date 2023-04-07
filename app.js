@@ -36,7 +36,7 @@ app.use(
     secret: "my secret",
     resave: false,
     saveUninitialized: false,
-    cookie: { sameSite: "lax", secure: false, maxAge: 1000 * 60 * 60 },
+    cookie: { sameSite: "none", secure: true, maxAge: 1000 * 60 * 60 },
     store: store,
   })
 );
