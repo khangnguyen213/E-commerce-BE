@@ -22,7 +22,8 @@ app.use(
   cors({
     // origin: "http://localhost:3006",
     // origin: "https://e-commerce-shop-a3.netlify.app",
-    origin: process.env.COR_ORIGIN.split(","),
+    // origin: process.env.COR_ORIGIN.split(","),
+    origin: "*",
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
     credentials: true,
   })
