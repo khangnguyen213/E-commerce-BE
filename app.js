@@ -23,7 +23,7 @@ app.use(
     // origin: "http://localhost:3006",
     origin: [
       "https://e-commerce-shop-a3.netlify.app",
-      "https://e-commerce-admin-a3.netlify.app/login",
+      "https://e-commerce-admin-a3.netlify.app",
     ],
     // origin: process.env.COR_ORIGIN.split(","),
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
