@@ -20,7 +20,8 @@ const productControllers = require("./controller/productControllers");
 const cartControllers = require("./controller/cartControllers");
 app.use(
   cors({
-    origin: process.env.COR_ORIGIN.split(","),
+    origin: "https://e-commerce-shop-a3.netlify.app",
+    // origin: process.env.COR_ORIGIN.split(","),
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
     credentials: true,
   })
@@ -37,6 +38,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: { sameSite: "none", secure: true, maxAge: 1000 * 60 * 60 },
+    // cookie: { sameSite: "lax", secure: false, maxAge: 1000 * 60 * 60 },
     store: store,
   })
 );
