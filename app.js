@@ -21,9 +21,8 @@ const cartControllers = require("./controller/cartControllers");
 app.use(
   cors({
     // origin: "http://localhost:3006",
-    // origin: "https://e-commerce-shop-a3.netlify.app",
+    origin: ["https://e-commerce-shop-a3.netlify.app", "http://localhost:3006"],
     // origin: process.env.COR_ORIGIN.split(","),
-    origin: "*",
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
     credentials: true,
   })
